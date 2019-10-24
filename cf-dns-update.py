@@ -4,27 +4,22 @@ import json
 import sys
 import secrets
 
-# XXX Settings you need to update!!!
 IP_API = 'https://api.ipify.org?format=json'
-# Get CF API Key: https://support.cloudflare.com/hc/en-us/articles/200167836-Where-do-I-find-my-Cloudflare-API-key-
 CF_API_KEY = secrets.cloudflare_api_key
-# Your cloudflare email address
 CF_EMAIL = secrets.cloudflare_email
-# Your zone id is located on the main cloudflare domain dashboard
 ZONE_ID = secrets.cloudflare_zone_id
-# Run script once without this set and it'll retrive a list of records for you to find the ID to update here
-RECORD_ID_ARRAY = secrets.cloudflare_dns_record_ids
+RECORD_ID_ARRAY = []
 
-if not RECORD_ID_ARRAY:
-    resp = requests.get(
-        'https://api.cloudflare.com/client/v4/zones/{}/dns_records'.format(ZONE_ID),
-        headers={
-            'X-Auth-Key': CF_API_KEY,
-            'X-Auth-Email': CF_EMAIL
-        })
-    print(json.dumps(resp.json(), indent=4, sort_keys=True))
-    print('Please find the DNS record ID you would like to update and entry the value into the script')
-    sys.exit(0)
+# if not RECORD_ID_ARRAY:
+#     resp = requests.get(
+#         'https://api.cloudflare.com/client/v4/zones/{}/dns_records'.format(ZONE_ID),
+#         headers={
+#             'X-Auth-Key': CF_API_KEY,
+#             'X-Auth-Email': CF_EMAIL
+#         })
+#     print(json.dumps(resp.json(), indent=4, sort_keys=True))
+#     print('Please find the DNS record ID you would like to update and entry the value into the script')
+#     sys.exit(0)
 
 def get_record_id_json(record_id, updated_ip):
     json_return = {}
@@ -71,7 +66,25 @@ def get_updated_ip():
     print(IP_ADDRESS)
     return IP_ADDRESS
 
+def get_record_id_array(RECORD_ID_ARRAY,ZONE_ID, type):
+   json_return = {}
+
+   resp = requests.get(
+       'https://api.cloudflare.com/client/v4/zones/{}/dns_records?type={}'.format(ZONE_ID,type),
+       headers={
+         'X-Auth-Key': CF_API_KEY,
+         'X-Auth-Email': CF_EMAIL
+       })
+
+   jsondata = json.loads(resp.text)
+
+   for item in jsondata['result']:
+      record_id = item['id']
+      RECORD_ID_ARRAY.append(record_id)
+
 IP_ADDRESS = get_updated_ip()
+get_record_id_array(RECORD_ID_ARRAY,ZONE_ID,'A')
 
 for id in RECORD_ID_ARRAY:
     update_dns(id, IP_ADDRESS)
+
