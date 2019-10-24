@@ -33,6 +33,6 @@ if not os.path.exists(OLD_IP_FILE_PATH):
 elif oldip != newip:
     update_ip(newip)
     subprocess.call(['python3',CLOUDFLARE_UPDATE_SCRIPT_PATH])
-    title = "redpi - update IP"
+    title = "purpi - update IP"
     message = "SUCCESS - IP changed from {} to {}".format(oldip,newip)
     bw_pushover.send_message(message, title)
