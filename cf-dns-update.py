@@ -4,7 +4,6 @@ import json
 import sys
 import secrets
 
-<<<<<<< HEAD
 IP_API = 'https://api.ipify.org?format=json'
 CF_API_KEY = secrets.cloudflare_api_key
 CF_EMAIL = secrets.cloudflare_email
@@ -67,7 +66,6 @@ def get_updated_ip():
     print(IP_ADDRESS)
     return IP_ADDRESS
 
-<<<<<<< HEAD
 def get_record_id_array(RECORD_ID_ARRAY,ZONE_ID, type):
    json_return = {}
 
@@ -90,9 +88,3 @@ get_record_id_array(RECORD_ID_ARRAY,ZONE_ID,'A')
 for id in RECORD_ID_ARRAY:
     update_dns(id, IP_ADDRESS)
 
-=======
-IP_ADDRESS = get_updated_ip()
-
-for id in RECORD_ID_ARRAY:
-    update_dns(id, IP_ADDRESS)
->>>>>>> 9e44a80570d4be3113a9cf0aa4645797d2f1f543

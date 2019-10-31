@@ -8,11 +8,7 @@ import bw_pushover
 
 IP_API = 'https://api.ipify.org?format=json'
 OLD_IP_FILE_PATH = '/etc/external_ip'
-<<<<<<< HEAD
 CLOUDFLARE_UPDATE_SCRIPT_PATH = '/home/pi/.scripts/cf-dns-update/cf-dns-update.py'
-=======
-CLOUDFLARE_UPDATE_SCRIPT_PATH = '/usr/local/bin/cf-dns-update/cf-dns-update.py'
->>>>>>> 9e44a80570d4be3113a9cf0aa4645797d2f1f543
 
 def get_updated_ip():
     resp = requests.get(IP_API)
@@ -37,10 +33,6 @@ if not os.path.exists(OLD_IP_FILE_PATH):
 elif oldip != newip:
     update_ip(newip)
     subprocess.call(['python3',CLOUDFLARE_UPDATE_SCRIPT_PATH])
-<<<<<<< HEAD
     title = "purpi - update IP"
-=======
-    title = "redpi - update IP"
->>>>>>> 9e44a80570d4be3113a9cf0aa4645797d2f1f543
     message = "SUCCESS - IP changed from {} to {}".format(oldip,newip)
     bw_pushover.send_message(message, title)
