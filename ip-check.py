@@ -33,6 +33,6 @@ newip = get_updated_ip()
 if oldip != newip:
 #    update_ip(newip)
     subprocess.call(['python3',CLOUDFLARE_UPDATE_SCRIPT_PATH])
-    title = "purpi - update IP"
+    title = "{} - update IP".format(socket.gethostname())
     message = "SUCCESS - IP changed from {} to {}".format(oldip,newip)
     bw_pushover.send_message(message, title)
