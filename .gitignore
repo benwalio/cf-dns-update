@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
@@ -138,3 +139,9 @@ dmypy.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python
 secrets.*
+=======
+secrets.*
+*/
+--*/
+__pycache__/*
+>>>>>>> d84b8df7be02608a2cc832e55200ddc1346976ae
