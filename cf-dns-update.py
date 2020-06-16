@@ -37,7 +37,7 @@ def get_record_id_json(record_id, updated_ip):
 
     json_return['type'] = jsondata['result']['type']
     json_return['name'] = jsondata['result']['name']
-    if json_return['content'] == OLD_IP:
+    if jsondata['content'] == OLD_IP:
         json_return['content'] = updated_ip
     else:
         json_return['content'] = jsondata['result']['content']
