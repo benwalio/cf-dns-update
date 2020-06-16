@@ -5,6 +5,7 @@ import json
 import os.path
 import subprocess
 import socket
+import secrets
 import bw_pushover
 
 IP_API = 'https://api.ipify.org?format=json'
@@ -27,7 +28,7 @@ def get_updated_ip():
 #oldip = f.read()
 #f.close()
 
-oldip = socket.gethostbyname('ssh.benwal.io')
+oldip = socket.gethostbyname(secrets.hostname)
 newip = get_updated_ip()
 
 if oldip != newip:

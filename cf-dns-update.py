@@ -3,12 +3,14 @@ import requests
 import json
 import sys
 import secrets
+import socket
 
 IP_API = 'https://api.ipify.org?format=json'
 CF_API_KEY = secrets.cloudflare_api_key
 CF_EMAIL = secrets.cloudflare_email
 ZONE_ID = secrets.cloudflare_zone_id
 RECORD_ID_ARRAY = []
+OLD_IP = socket.gethostbyname(secrets.hostname)
 
 # if not RECORD_ID_ARRAY:
 #     resp = requests.get(
@@ -35,7 +37,10 @@ def get_record_id_json(record_id, updated_ip):
 
     json_return['type'] = jsondata['result']['type']
     json_return['name'] = jsondata['result']['name']
-    json_return['content'] = updated_ip
+    if json_return['content'] == OLD_IP:
+        json_return['content'] = updated_ip
+    else:
+        json_return['content'] = jsondata['result']['content']
     json_return['proxied'] = jsondata['result']['proxied']
     json_return['ttl'] = jsondata['result']['ttl']
 
